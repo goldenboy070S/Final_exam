@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer
 from .models import *
 
 
-class NewsSerializer(ModelSerializer):
+class CarSerializer(ModelSerializer):
     class Meta:
-        model = News
+        model = Car
         fields = '__all__'

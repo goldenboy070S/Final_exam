@@ -2,5 +2,6 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', NewsAPIView.as_view())
+    path('', CarAPIView.as_view(), name='Api'),
+    path('<int:pk>/', CarAPIdetail.as_view(), name='Api_detail'),
 ]
