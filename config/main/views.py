@@ -20,27 +20,94 @@ class CarAPIdetail(RetrieveAPIView):
 
 
 class CarAPI(APIView):
-    def get(self, request: Request):
+    def get(self, request: Request, pk=None):
         cars = Car.objects.all()
-        car = CarSerializer(cars, many=True)
-        return Response(car.data)
+        serializer = CarSerializer(cars, many=True)
+        return Response(serializer.data)
+
+    def post(self,request: Request, pk=None):
+        serializer = CarSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        car = serializer.save()
+        return Response(CarSerializer(car).data)
+
+    def put(self,request: Request, pk):
+        try:
+            car = Car.objects.get(id=pk)
+        except Car.DoesNotExist:
+            return Response({"message": "Car not found"})
+        serializer = CarSerializer(car, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        car = serializer.save()
+        return Response(CarSerializer(car).data)
+
+    def delete(self,request: Request, pk):
+        try:
+            car = Car.objects.get(id=pk)
+        except Car.DoesNotExist:
+            return Response({"message": "Car not found"})
+        car.delete()
+        return Response({"message": "Car deleted successfully"})
 
 
 class NewsAPI(APIView):
-    def get(self, request: Request):
+    def get(self, request: Request, pk=None):
         news = New.objects.all()
-        new = NewSerializer(news, many=True)
-        return Response(new.data)
+        serializer = NewSerializer(news, many=True)
+        return Response(serializer.data)
+    
+    def post(self,request: Request, pk=None):
+        serializer = NewSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new = serializer.save()
+        return Response(NewSerializer(new).data)
+    
+    def put(self,request: Request, pk):
+        try:
+            new = New.objects.get(id=pk)
+        except New.DoesNotExist:
+            return Response({"message": "News not found"})
+        serializer = NewSerializer(new, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        new = serializer.save()
+        return Response(NewSerializer(new).data)
+    
+    def delete(self,request: Request, pk):
+        try:
+            new = New.objects.get(id=pk)
+        except New.DoesNotExist:
+            return Response({"message": "News not found"})
+        new.delete()
+        return Response({"message": "News deleted successfully"})
     
 
 class ProductAPI(APIView):
-    def get(self, request: Request):
+    def get(self, request: Request, pk=None):
         products = Product.objects.all()
-        pro = []
-        for i in products:
-            pro.append({'id': i.id,
-                        'name': i.name,
-                        'description': i.description,
-                        'created_at': i.created_at,
-                        'image': i.image.url})
-        return Response(pro)
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+    
+    def post(self,request: Request, pk=None):
+        serializer = ProductSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+        return Response(ProductSerializer(product).data)
+    
+    def put(self,request: Request, pk):
+        try:
+            product = Product.objects.get(id=pk)
+        except Product.DoesNotExist:
+            return Response({'message': 'product not found'})
+        serializer = ProductSerializer(product, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        product = serializer.save()
+        return Response(ProductSerializer(product).data)
+
+    def delete(self,request: Request, pk):
+        try:
+            product = Product.objects.get(id=pk)
+        except Product.DoesNotExist:
+            return Response({'message': 'product not found'})
+        product.delete()
+        return Response({"message": "Product deleted successfully"})
+    
