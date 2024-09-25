@@ -111,3 +111,189 @@ class ProductAPI(APIView):
         product.delete()
         return Response({"message": "Product deleted successfully"})
     
+
+class BookAPI(APIView):
+    def get(self, request: Request, pk=None):
+        if pk:
+            try:
+                book = Book.objects.get(pk=pk)
+                return Response(BookSerializer(book).data)
+            except Book.DoesNotExist:
+                return Response({"message": "Book not found"})
+        books = Book.objects.all()
+        return Response(BookSerializer(books, many=True).data)
+    
+    def post(self, request: Request, pk=None):
+        if not pk:
+            serializer = BookSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            book = serializer.save()
+            return Response(BookSerializer(book).data)
+        else:
+            return Response({"message": "Method POST not allowed"})
+        
+    def put(self, request: Request, pk=None):
+        if pk:
+            try:
+                book = Book.objects.get(pk=pk)
+                serializer = BookSerializer(book, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                book = serializer.save()
+                return Response(BookSerializer(book).data)
+            except Book.DoesNotExist:
+                return Response({"message": "Book not found"})
+        else:
+            return Response({"message": "Method PUT not allowed"})
+        
+    def delete(self, request: Request, pk=None):
+        if pk:
+            try:
+                book = Book.objects.get(pk=pk)
+                book.delete()
+                return Response({"message": "Book deleted successfully"})
+            except Book.DoesNotExist:
+                return Response({"message": "Book not found"})
+        else:
+            return Response({"message": "Method DELETE not allowed"})
+
+
+class MoviewApi(APIView):
+    def get(self, request: Request, pk=None):
+        if pk:
+            try:
+                movie = Moview.objects.get(pk=pk)
+                return Response(MoviewSerializer(movie).data)
+            except Moview.DoesNotExist:
+                return Response({"message": "Movie not found"})
+        movies = Moview.objects.all()
+        return Response(MoviewSerializer(movies, many=True).data)
+    
+    def post(self, request: Request, pk=None):
+        if not pk:
+            serializer = MoviewSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            movie = serializer.save()
+            return Response(MoviewSerializer(movie).data)
+        else:
+            return Response({"message": "Method POST not allowed"})
+        
+    def put(self, request: Request, pk=None):
+        if pk:
+            try:
+                movie = Moview.objects.get(pk=pk)
+                serializer = MoviewSerializer(movie, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                movie = serializer.save()
+                return Response(MoviewSerializer(movie).data)
+            except Moview.DoesNotExist:
+                return Response({"message": "Movie not found"})
+        else:
+            return Response({"message": "Method PUT not allowed"})
+        
+    def delete(self, request: Request, pk=None):
+        if pk:
+            try:
+                movie = Moview.objects.get(pk=pk)
+                movie.delete()
+                return Response({"message": "Movie deleted successfully"})
+            except Moview.DoesNotExist:
+                return Response({"message": "Movie not found"})
+        else:
+            return Response({"message": "Method DELETE not allowed"})
+    
+
+class CommentAPI(APIView):
+    def get(self, request: Request, pk=None):
+        if pk:
+            try:
+                comment = Comment.objects.get(pk=pk)
+                return Response(CommentSerializer(comment).data)
+            except Comment.DoesNotExist:
+                return Response({"message": "Comment not found"})
+        comments = Comment.objects.all()
+        return Response(CommentSerializer(comments, many=True).data)
+    
+    def post(self, request: Request, pk=None):
+        if not pk:
+            serializer = CommentSerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            comment = serializer.save()
+            return Response(CommentSerializer(comment).data)
+        else:
+            return Response({"message": "Method POST not allowed"})
+        
+    def put(self, request: Request, pk=None):
+        if pk:
+            try:
+                comment = Comment.objects.get(pk=pk)
+                serializer = CommentSerializer(comment, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                comment = serializer.save()
+                return Response(CommentSerializer(comment).data)
+            except Comment.DoesNotExist:
+                return Response({"message": "Comment not found"})
+        else:
+            return Response({"message": "Method PUT not allowed"})
+    
+    def delete(self, request: Request, pk=None):
+        if pk:
+            try:
+                comment = Comment.objects.get(pk=pk)
+                comment.delete()
+                return Response({"message": "Comment deleted successfully"})
+            except Comment.DoesNotExist:
+                return Response({"message": "Comment not found"})
+        else:
+            return Response({"message": "Method DELETE not allowed"})
+        
+
+class CategoryAPI(APIView):
+    def get(self, request, pk=None):
+        if pk:
+            try:
+                category = Category.objects.get(pk=pk)
+                return Response(CategorySerializer(category).data)
+            except Category.DoesNotExist:
+                return Response({"message": "Category not found"})
+        categories = Category.objects.all()
+        return Response(CategorySerializer(categories, many=True).data)
+    
+    def post(self, request, pk=None):
+        if not pk:
+            serializer = CategorySerializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            category = serializer.save()
+            return Response(CategorySerializer(category).data)
+        else:
+            return Response({"message": "Method POST not allowed"})
+        
+    def put(self, request, pk=None):
+        if pk:
+            try:
+                category = Category.objects.get(pk=pk)
+                serializer = CategorySerializer(category, data=request.data)
+                serializer.is_valid(raise_exception=True)
+                category = serializer.save()
+                return Response(CategorySerializer(category).data)
+            except Category.DoesNotExist:
+                return Response({"message": "Category not found"})
+        else:
+            return Response({"message": "Method PUT not allowed"})
+        
+    def delete(self, request, pk=None):
+        if pk:
+            try:
+                category = Category.objects.get(pk=pk)
+                category.delete()
+                return Response({"message": "Category deleted successfully"})
+            except Category.DoesNotExist:
+                return Response({"message": "Category not found"})
+        else:
+            return Response({"message": "Method DELETE not allowed"})   
+
+
+
+
+
+
+

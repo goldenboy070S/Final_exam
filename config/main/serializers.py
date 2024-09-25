@@ -55,13 +55,72 @@ class ProductSerializer(serializers.Serializer):
         return instance
 
 
+class BookSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=150)
+    author_id = serializers.IntegerField()
+    created_at = serializers.DateTimeField()
+    description = serializers.CharField()
+
+    def create(self, validated_data):
+        return Book.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.author = validated_data.get('author', instance.author)
+        instance.created_at = validated_data.get('created_at', instance.created_at)
+        instance.description = validated_data.get('description', instance.description)
+        instance.save()
+        return instance
 
 
+class MoviewSerializer(serializers.Serializer):
+    title = serializers.CharField(max_length=150)
+    author_id = serializers.IntegerField()
+    created_at = serializers.DateTimeField()
+    description = serializers.CharField()
+    category_id = serializers.IntegerField()
+
+    def create(self, validated_data):
+        return Moview.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.title = validated_data.get('title', instance.title)
+        instance.author = validated_data.get('author', instance.author)
+        instance.created_at = validated_data.get('created_at', instance.created_at)
+        instance.description = validated_data.get('description', instance.description)
+        instance.category = validated_data.get('category', instance.category)
+        instance.save()
+        return instance
 
 
+class CommentSerializer(serializers.Serializer):
+    text = serializers.CharField()
+    created_at = serializers.DateTimeField()
+    author_id = serializers.IntegerField()
+    move_id = serializers.IntegerField()
 
+    def create(self, validated_data):
+        return Comment.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.text = validated_data.get('text', instance.text)
+        instance.created_at = validated_data.get('created_at', instance.created_at)
+        instance.author = validated_data.get('author', instance.author)
+        instance.move = validated_data.get('movie', instance.move)
+        instance.save()
+        return instance
+    
 
+class CategorySerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=150)
 
+    def create(self, validated_data):
+        return Category.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance
 
 
 
