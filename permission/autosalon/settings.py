@@ -51,7 +51,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'permission.urls'
+ROOT_URLCONF = 'autosalon.urls'
 
 TEMPLATES = [
     {
@@ -69,7 +69,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'permission.wsgi.application'
+WSGI_APPLICATION = 'autosalon.wsgi.application'
 
 
 # Database
